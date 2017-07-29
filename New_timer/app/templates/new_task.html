@@ -1,0 +1,49 @@
+{% extends "base.html" %} <!-- 引入基模板 -->
+{% import "bootstrap/wtf.html" as wtf %}
+<title>NEW-TASK</title>
+{% block page_content %}
+    <div align="center">
+        <form method="POST" class=".form-horizontal">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ form.task_name.label }}</label>
+                <div class="col-sm-7">
+                    {{ form.task_name(class="form-control", placeholder="请输入事件名") }}<br>
+                    {% if form.task_name.errors %}
+                        <div class="alert">
+                            {% for error in form.task_name.errors %}
+                                <a class="close" data-dismiss="alert">×</a>
+                                <p class="help-block">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ form.task_date.label }}</label>
+                <div class="col-sm-7">
+                    {{ form.task_date(class="form-control", placeholder="请按照2020-01-01格式填写") }}<br>
+                    {% if form.task_date.errors %}
+                        <div class="alert">
+                            {% for error in form.task_date.errors %}
+                                <a class="close" data-dismiss="alert">×</a>
+                                <p class="help-block">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div><br>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ form.task_detail.label }}</label>
+                    <div class="col-sm-7">
+                        {{ form.task_detail(class="form-control", placeholder="选填内容") }}<br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-default") }}
+                </div>
+                <a class="btn btn-default" href="{{ url_for('main.task_list') }}">返回</a>
+        </form>
+    </div>
+{% endblock %}
+
