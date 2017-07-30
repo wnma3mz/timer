@@ -1,4 +1,4 @@
-# !/usr/bin/python
+#!/usr/bin/python
 # -*-coding:utf-8 -*-
 # author:Lu
 import os
@@ -22,9 +22,12 @@ class DevelomentConfig(Config):
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123@localhost:3306/timer'
 
+class HerokuConfig(Config):
+    DEBUG = True
 
 config = {
     'development': DevelomentConfig,
     'default': DevelomentConfig,
     'production': ProductionConfig,
+    'heroku': HerokuConfig
 }
