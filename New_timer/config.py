@@ -15,7 +15,7 @@ class Config:
         pass
 
 class DevelomentConfig(Config):
-    DEBUG = True
+    # DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123@localhost:3306/timer'
 
@@ -23,13 +23,14 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123@localhost:3306/timer'
 
 class HerokuConfig(Config):
-    DEBUG = True
+    # DEBUG = True
+    pass
 
 
 
 config = {
     'development': DevelomentConfig,
-    'default': DevelomentConfig,
     'production': ProductionConfig,
-    'heroku': HerokuConfig
+    'heroku': HerokuConfig,
+    'default': DevelomentConfig,
 }

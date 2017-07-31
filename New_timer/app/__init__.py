@@ -10,7 +10,7 @@ from config import config
 
 
 bootstrap = Bootstrap()
-db =SQLAlchemy()
+db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_message = u"请登录"
 login_manager.session_protection = 'strong'
