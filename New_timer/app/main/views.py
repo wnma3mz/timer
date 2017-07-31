@@ -57,26 +57,23 @@ def login_ncuos(studentid, password):
     except:
         return None, None
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         studentid = str(form.studentid.data)
         password = str(form.password.data)
         user = User.query.filter_by(studentid=studentid).first()
-        try:
-            if user.password == password:
-                login_user(user, remember=True)
-                flash(u'登录成功')
-                return redirect(url_for('main.task_list'))
-            else:
-                flash(u"请正确输入你的密码")
-                return render_template('login.html', form=form)
-        except:
-            college, class_ = login_ncuos(studentid, password)
-            if college == None:
-                flash(u"请正确输入你的学号或者密码")
-                return render_template('login.html', form=form)
+        # print user.college
+        college, class_ = login_ncuos(studentid, password)
+        if college == None:
+            flash(u"请正确输入你的学号或者密码")
+            return render_template('login.html', form=form)
+        else:
+            if user != None:
+                user.college, user.class_, user.password = college, class_, password
+                db.session.add(user)
+                db.session.commit()
             else:
                 user = User(studentid=studentid,
                             password=password,
@@ -84,11 +81,12 @@ def login():
                             class_=class_)
                 db.session.add(user)
                 db.session.commit()
+                user = User.query.filter_by(studentid=studentid).first()
                 im = import_tasks.import_tasks()
-                im.import_vacation(studentid)
-                login_user(user, remember=True)
-                flash(u'登录成功')
-                return redirect(url_for('main.task_list'))
+                im.import_vacation(user.id)
+            login_user(user, remember=True)
+            flash(u'登录成功')
+            return redirect(url_for('main.task_list'))
     return render_template('login.html', form=form)
 
 @main.route('/logout')
@@ -98,7 +96,7 @@ def logout():
     flash(u'你已登出.')
     return redirect(url_for('main.login'))
 
-
+@main.route('/', methods=['GET', 'POST'])
 @main.route('/task_list', methods=['GET', 'POST'])
 @login_required
 def task_list():

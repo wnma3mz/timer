@@ -19,7 +19,7 @@ def time_del(str_input):
 
 
 class LoginForm(FlaskForm):
-    studentid = StringField(u'学号', validators=[DataRequired(message=u'请正确输入你的学号'), Length(10),])
+    studentid = StringField(u'学号', validators=[DataRequired(message=u'请正确输入你的学号')])
     password = PasswordField(u'密码', validators=[DataRequired(message= u'请输入你的密码')])
     submit = SubmitField(u'登录')
 

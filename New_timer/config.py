@@ -25,6 +25,8 @@ class ProductionConfig(Config):
 class HerokuConfig(Config):
     DEBUG = True
 
+
+
 config = {
     'development': DevelomentConfig,
     'default': DevelomentConfig,

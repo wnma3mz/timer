@@ -8,18 +8,15 @@ class import_tasks(object):
     def __init__(self):
         pass
 
-    def import_vacation(self, studentid):
-        vacation_list = [['国庆节', '2017-10-01'], ['双十一', '2017-11-11'], ['圣诞节', '2017-12-25'], ['元旦', '2018-01-01'], ['寒假', '2018-01-29']]
+    def import_vacation(self, id):
+        vacation_list = [['国庆节', '2017-10-01'], ['双十一', '2017-11-11'], ['圣诞节', '2017-12-25'], ['元旦', '2018-01-01'],
+                         ['寒假', '2018-01-29']]
         db = pymysql.connect(host='localhost', user='root', password='123', database="timer", charset='utf8')
-        curs_id = db.cursor()
         curs_insert = db.cursor()
-        sql_id = "SELECT id FROM users WHERE studentid=%d" % studentid
-        curs_id.execute(sql_id)
-        for row in curs_id:
-            for name, date in vacation_list:
-                sql_insert = "INSERT INTO task (task_name, task_date, task_num) VALUES (\'%s\', \'%s\', %d)" % (name, date, row[0])
-                curs_insert.execute(sql_insert)
-                db.commit()
+        for name, date in vacation_list:
+            sql_insert = "INSERT INTO task (task_name, task_date, task_num) VALUES (\'%s\', \'%s\', %d)" % (name, date, id)
+            curs_insert.execute(sql_insert)
+            db.commit()
         db.close()
 
 def delete_repeat():
@@ -38,3 +35,20 @@ def delete_repeat():
             tmp_list.append([row[1], row[5]])
     db.close()
 
+def import_vacation(studentid):
+    vacation_list = [['国庆节', '2017-10-01'], ['双十一', '2017-11-11'], ['圣诞节', '2017-12-25'], ['元旦', '2018-01-01'], ['寒假', '2018-01-29']]
+    db = pymysql.connect(host='localhost', user='root', password='123', database="timer", charset='utf8')
+    # curs_id = db.cursor()
+    curs_insert = db.cursor()
+    # sql_id = "SELECT id FROM users WHERE studentid=%s" % studentid
+    # curs_id.execute(sql_id)
+    # print curs_id.fetchall()
+    # id = curs_id.fetchall()[0][0]
+
+    for name, date in vacation_list:
+        sql_insert = "INSERT INTO task (task_name, task_date, task_num) VALUES (\'%s\', \'%s\', %d)" % (name, date, id)
+        curs_insert.execute(sql_insert)
+        db.commit()
+    db.close()
+if __name__ == '__main__':
+    import_vacation(5710116133)
