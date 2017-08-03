@@ -11,7 +11,7 @@ class import_tasks(object):
     def import_vacation(self, id):
         vacation_list = [['国庆节', '2017-10-01'], ['双十一', '2017-11-11'], ['圣诞节', '2017-12-25'], ['元旦', '2018-01-01'],
                          ['寒假', '2018-01-29']]
-        db = pymysql.connect(host='localhost', user='root', password='123', database="timer", charset='utf8')
+        db = pymysql.connect(host='localhost', user='root', password='centos@lu', database="timer", charset='utf8')
         curs_insert = db.cursor()
         for name, date in vacation_list:
             sql_insert = "INSERT INTO task (task_name, task_date, task_num) VALUES (\'%s\', \'%s\', %d)" % (name, date, id)
