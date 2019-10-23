@@ -39,7 +39,7 @@ python-dateutil==2.6.1
 python-editor==1.0.3
 pytz==2017.2
 regex==2017.7.11
-requests==2.18.2
+requests==2.20.0
 ruamel.yaml==0.15.19
 selenium==3.4.3
 send-email==201212
