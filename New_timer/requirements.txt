@@ -28,7 +28,7 @@ itsdangerous==0.24
 Jinja2==2.9.6
 livereload==2.5.1
 Mail==2.1.0
-Mako==1.0.7
+Mako==1.2.2
 Markdown==2.6.8
 MarkupSafe==1.0
 olefile==0.44
